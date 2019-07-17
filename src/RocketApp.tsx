@@ -10,7 +10,7 @@ interface State {
 }
 export default class RocketApp extends React.Component<Props, State> {
   state: State = {
-    welcomeMessage: 'Random SpaceX Rocket',
+    welcomeMessage: 'Random SpaceX Launch',
     rocketName: null,
   };
 
@@ -27,8 +27,10 @@ export default class RocketApp extends React.Component<Props, State> {
     return (
       <div>
         <h1>{this.state.welcomeMessage}</h1>
+        <button className="btn" onClick={() => this._getNewRocket()}>
+          Random Launch
+        </button>
         <h3>{this.state.rocketName}</h3>
-        <button onClick={() => this._getNewRocket()}>Random Rocket</button>
       </div>
     );
   }
