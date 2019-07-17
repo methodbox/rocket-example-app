@@ -8,7 +8,7 @@ interface Props {}
 class App extends React.Component<Props> {
   render() {
     return (
-      <div>
+      <div className="app-container">
         <RocketApp />
       </div>
     );
