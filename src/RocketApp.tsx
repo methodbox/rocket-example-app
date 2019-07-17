@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './styles.css';
-
 interface Props {}
 
 interface State {
   welcomeMessage: string;
   rocketName: string | null;
 }
+
 export default class RocketApp extends React.Component<Props, State> {
   state: State = {
     welcomeMessage: 'Random SpaceX Launch',
