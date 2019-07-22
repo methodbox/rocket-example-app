@@ -1,31 +1,4 @@
-export interface Mission {
-  flight_number: number;
-  mission_name: string;
-  mission_id: Array<string>;
-  launch_year: string;
-  launch_date_unix: number;
-  is_tentative: boolean;
-  tbd: boolean;
-  launch_window: number;
-  rocket: {
-    rocket_id: string;
-    rocket_name: string;
-    payload_mass_kg: number;
-  };
-  ships: Array<string>;
-  launch_site: {
-    site_name_long: string;
-  };
-  launch_success: boolean;
-  links: {
-    mission_patch: string;
-    mission_patch_small: string;
-    flickr_images: Array<string>;
-  };
-  details: string;
-}
-
-export const mission: Mission = {
+export const mission = {
   flight_number: 65,
   mission_name: 'Telstar 19V',
   mission_id: ['F4F83DE'],

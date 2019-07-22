@@ -1,12 +1,14 @@
 import * as React from 'react';
 import './styles.css';
 // Rocket Info
-import { mission } from './data/rockets';
+// @ts-ignore
+import { mission } from './data/rockets.js';
 import 'bootstrap/dist/css/bootstrap.css';
 const defaultLaunchImg = require('./assets/2013_-_9_falcon_9_ses_launch-4.jpg');
 const defaultLogoImg = require('./assets/mission-logo.png');
-const launchDateUnix: number = mission.launch_date_unix * 1000;
+
 const launchImageArray: Array<string> = mission.links.flickr_images;
+const launchDateUnix: number = mission.launch_date_unix * 1000;
 
 interface Props {}
 
@@ -20,26 +22,26 @@ interface State {
   missionSuccess: boolean;
   flightNumber: number;
   missionId: Array<string>;
-  noradId: Array<number>;
   launchDate: string;
   payloadSize: number;
   ships: Array<string>;
+  isShowingMissionData: boolean;
 }
 export default class RocketApp extends React.Component<Props, State> {
   state: State = {
-    appTitle: 'SpaceX Launch Info',
+    appTitle: 'SpaceX Launches',
     launchImg: defaultLaunchImg,
-    rocketName: 'Rocket Name',
-    missionName: 'Mission Name',
+    rocketName: '',
+    missionName: '',
     missionLogo: defaultLogoImg,
-    missionDetails: 'The mission details will appear here.',
+    missionDetails: '',
     missionSuccess: false,
-    flightNumber: 99999,
-    missionId: ['0'],
-    noradId: [0],
+    flightNumber: 0,
+    missionId: [''],
     launchDate: '',
     payloadSize: 0,
-    ships: ['No ship data found.'],
+    ships: [''],
+    isShowingMissionData: false,
   };
 
   _getNewRocket() {
@@ -51,11 +53,11 @@ export default class RocketApp extends React.Component<Props, State> {
       missionDetails: mission.details,
       flightNumber: mission.flight_number,
       missionId: mission.mission_id,
-      noradId: mission.rocket.second_stage.payloads[0].norad_id,
       launchDate: new Date(launchDateUnix).toDateString(),
-      payloadSize: mission.rocket.second_stage.payloads[0].payload_mass_lbs,
       missionSuccess: mission.launch_success,
+      payloadSize: mission.rocket.payload_mass_kg,
       ships: mission.ships,
+      isShowingMissionData: true,
     });
   }
   render() {
@@ -67,44 +69,43 @@ export default class RocketApp extends React.Component<Props, State> {
             Get Rocket Data
           </button>
         </div>
-        <div className="card rocket-info-card">
-          <img src={this.state.launchImg} className="card-img-top" />
-          <div className="card-body">
-            <h5 className="card-title">Mission: {this.state.missionName}</h5>
-            <img src={this.state.missionLogo} className="mission-logo float-right" />
-            <h6 className="card-subtitle mb-2 text-muted">Rocket: {this.state.rocketName}</h6>
-            <p className="card-text">{this.state.missionDetails}</p>
+        {this.state.isShowingMissionData ? (
+          <div className="card rocket-info-card">
+            <img src={this.state.launchImg} className="card-img-top" />
+            <div className="card-body">
+              <h5 className="card-title">Mission: {this.state.missionName}</h5>
+              <img src={this.state.missionLogo} className="mission-logo float-right" />
+              <h6 className="card-subtitle mb-2 text-muted">Rocket: {this.state.rocketName}</h6>
+              <p className="card-text">{this.state.missionDetails}</p>
+            </div>
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">
+                Flight Number: <span className="text-info list-margin">{this.state.flightNumber}</span>
+              </li>
+              <li className="list-group-item">
+                Mission ID: <span className="text-info list-margin">{this.state.missionId[0]}</span>
+              </li>
+              <li className="list-group-item">
+                Mission Date: <span className="text-info list-margin">{this.state.launchDate}</span>
+              </li>
+              <li className="list-group-item">
+                Payload Size: <span className="text-info list-margin">{this.state.payloadSize}</span>
+              </li>
+              <li className="list-group-item">
+                Mission Success:{' '}
+                <span className="text-info list-margin">{this.state.missionSuccess ? 'True' : 'False'}</span>
+              </li>
+            </ul>
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">
+                <h5>Ships:</h5>
+              </li>
+              {this.state.ships.map(shipName => {
+                return <li className="list-group-item ship-margin">{shipName}</li>;
+              })}
+            </ul>
           </div>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              Flight Number: <span className="text-info list-margin">{this.state.flightNumber}</span>
-            </li>
-            <li className="list-group-item">
-              Mission ID: <span className="text-info list-margin">{this.state.missionId[0]}</span>
-            </li>
-            <li className="list-group-item">
-              NORAD ID: <span className="text-info list-margin">{this.state.noradId[0]}</span>
-            </li>
-            <li className="list-group-item">
-              Mission Date: <span className="text-info list-margin">{this.state.launchDate}</span>
-            </li>
-            <li className="list-group-item">
-              Payload Size: <span className="text-info list-margin">{this.state.payloadSize}</span>
-            </li>
-            <li className="list-group-item">
-              Mission Success:{' '}
-              <span className="text-info list-margin">{this.state.missionSuccess ? 'True' : 'False'}</span>
-            </li>
-          </ul>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <h5>Ships:</h5>
-            </li>
-            {this.state.ships.map(shipName => {
-              return <li className="list-group-item ship-margin">{shipName}</li>;
-            })}
-          </ul>
-        </div>
+        ) : null}
       </div>
     );
   }
