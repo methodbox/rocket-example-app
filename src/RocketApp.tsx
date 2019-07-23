@@ -4,8 +4,6 @@ import './styles.css';
 // @ts-ignore
 import { mission } from './data/rockets.js';
 import 'bootstrap/dist/css/bootstrap.css';
-const defaultLaunchImg: string = require('./assets/2013_-_9_falcon_9_ses_launch-4.jpg');
-const defaultLogoImg: string = require('./assets/mission-logo.png');
 
 const launchImageArray: Array<string> = mission.links.flickr_images;
 const launchDateUnix: number = mission.launch_date_unix * 1000;
@@ -30,10 +28,10 @@ interface State {
 export default class RocketApp extends React.Component<Props, State> {
   state: State = {
     appTitle: 'SpaceX Launches',
-    launchImg: defaultLaunchImg,
+    launchImg: require('./assets/2013_-_9_falcon_9_ses_launch-4.jpg'),
     rocketName: '',
     missionName: '',
-    missionLogo: defaultLogoImg,
+    missionLogo: require('./assets/mission-logo.png'),
     missionDetails: '',
     missionSuccess: false,
     flightNumber: 0,
