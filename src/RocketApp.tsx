@@ -4,8 +4,8 @@ import './styles.css';
 // @ts-ignore
 import { mission } from './data/rockets.js';
 import 'bootstrap/dist/css/bootstrap.css';
-const defaultLaunchImg = require('./assets/2013_-_9_falcon_9_ses_launch-4.jpg');
-const defaultLogoImg = require('./assets/mission-logo.png');
+const defaultLaunchImg: string = require('./assets/2013_-_9_falcon_9_ses_launch-4.jpg');
+const defaultLogoImg: string = require('./assets/mission-logo.png');
 
 const launchImageArray: Array<string> = mission.links.flickr_images;
 const launchDateUnix: number = mission.launch_date_unix * 1000;
