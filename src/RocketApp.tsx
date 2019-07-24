@@ -64,7 +64,7 @@ export default class RocketApp extends React.Component<Props, State> {
         <h1 className="app-title">{this.state.appTitle}</h1>
         <div className="mx-auto" style={{ width: 200 }}>
           <button type="button" className="btn btn-danger" onClick={() => this._getNewRocket()}>
-            Get Rocket Data
+            Get Launch Data
           </button>
         </div>
         {this.state.isShowingMissionData ? (
@@ -90,7 +90,7 @@ export default class RocketApp extends React.Component<Props, State> {
                 Payload Size: <span className="text-info list-margin">{this.state.payloadSize}</span>
               </li>
               <li className="list-group-item">
-                Mission Success:{' '}
+                Mission Success:
                 <span className="text-info list-margin">{this.state.missionSuccess ? 'True' : 'False'}</span>
               </li>
             </ul>
