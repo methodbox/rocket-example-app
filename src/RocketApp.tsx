@@ -5,9 +5,6 @@ import './styles.css';
 import { mission } from './data/rockets.js';
 import 'bootstrap/dist/css/bootstrap.css';
 
-const launchImageArray: Array<string> = mission.links.flickr_images;
-const launchDateUnix: number = mission.launch_date_unix * 1000;
-
 interface Props {}
 
 interface State {
@@ -47,11 +44,11 @@ export default class RocketApp extends React.Component<Props, State> {
       rocketName: mission.rocket.rocket_name,
       missionName: mission.mission_name,
       missionLogo: mission.links.mission_patch_small,
-      launchImg: launchImageArray[Math.floor(Math.random() * 5)],
+      launchImg: mission.links.flickr_images[Math.floor(Math.random() * 5)],
       missionDetails: mission.details,
       flightNumber: mission.flight_number,
       missionId: mission.mission_id,
-      launchDate: new Date(launchDateUnix).toDateString(),
+      launchDate: new Date(mission.launch_date_unix * 1000).toDateString(),
       missionSuccess: mission.launch_success,
       payloadSize: mission.rocket.payload_mass_kg,
       ships: mission.ships,
